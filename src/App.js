@@ -1,25 +1,24 @@
-import logo from './logo.svg'
-import './App.css'
+import { Route, Routes } from 'react-router-dom'
+
+import Home from './Routes/Home/Home'
+import Authentication from './Authentication/Authentication'
+import BrowseRecipes from './Routes/BrowseRecipes/BrowseRecipes'
+import SubmitRecipe from '../src/Routes/SubmitRecipe/SubmitRecipe'
+import Navigation from './Components/Navigation/Navigation.component'
+import MyRecipes from './Routes/MyRecipes/MyRecipes'
 
 function App() {
-  console.log(process.env.REACT_APP_API_URL)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navigation />
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="auth" element={<Authentication />} />
+        <Route path="recipes" element={<BrowseRecipes />} />
+        <Route path="submit" element={<SubmitRecipe />} />
+        <Route path="my-recipes" element={<MyRecipes />} />
+      </Routes>
+    </>
   )
 }
 

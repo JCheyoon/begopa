@@ -1,0 +1,27 @@
+html {
+  --orange: #f89223;
+  --dark-orange: #cc893c;
+  --white: #ffffff;
+  --black: #000000;
+  --gray: #8c8e91;
+  --dark-gray: #292935;
+  --light-gray: #eae9e7;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+* {
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
