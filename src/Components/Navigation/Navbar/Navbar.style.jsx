@@ -7,7 +7,7 @@ export const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
-  border-top: 1px solid var(--light-gray);
+  border-bottom: 1px solid var(--light-gray);
 `
 
 export const NavLink = styled(Link)`

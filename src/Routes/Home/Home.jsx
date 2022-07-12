@@ -1,6 +1,6 @@
-import Category from '../../Components/Category/Category..componet'
+import Category from '../../Components/Category/Category..component'
 import RecentRecipe from '../../Components/RecentRecipe/RecentRecipe.component'
-import Footer from '../../Components/Footer/Footer.componet'
+import Footer from '../../Components/Footer/Footer.component'
 
 const Home = () => {
   return (

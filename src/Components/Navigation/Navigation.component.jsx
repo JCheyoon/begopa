@@ -1,13 +1,12 @@
 import { NavigationContainer, LogoContainer, LogoWithTextSvg } from './Navigation.style'
 import { useEffect, useState } from 'react'
-import Navbar from './Navbar/Navbar.componet'
+import Navbar from './Navbar/Navbar.component'
 
 const Navigation = () => {
   const [isSticky, setIsSticky] = useState(false)
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
-      console.log(window.scrollY)
       setIsSticky(window.scrollY > 190)
     })
   }, [])

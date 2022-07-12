@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ReactComponent as LogoWithText } from '../../Assets/logoWithText.svg'
 
 export const NavigationContainer = styled.div`
-  background-color: white;
+  background-color: var(--white);
   position: absolute;
   top: 0;
   left: 0;
