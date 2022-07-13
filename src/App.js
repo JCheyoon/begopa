@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import Home from './Routes/Home/Home'
-import Authentication from './Authentication/Authentication'
+import Authentication from './Routes/Authentication/Authentication'
 import ViewRecipes from './Routes/ViewRecipes/ViewRecipes'
 import SubmitRecipe from '../src/Routes/SubmitRecipe/SubmitRecipe'
 import Navigation from './Components/Navigation/Navigation.component'

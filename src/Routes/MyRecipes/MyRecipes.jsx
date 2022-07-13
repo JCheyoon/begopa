@@ -1,8 +1,10 @@
+import { Page } from '../../Components/Page/Page.style'
+
 const MyRecipes = () => {
   return (
-    <div>
+    <Page>
       <h1>나는 마이레시피</h1>
-    </div>
+    </Page>
   )
 }
 

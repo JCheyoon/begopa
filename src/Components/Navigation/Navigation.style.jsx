@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import { ReactComponent as LogoWithText } from '../../Assets/logoWithText.svg'
 
 export const NavigationContainer = styled.div`
@@ -14,7 +13,7 @@ export const NavigationContainer = styled.div`
   }
 `
 
-export const LogoContainer = styled(Link)`
+export const LogoContainer = styled.div`
   height: 100%;
   width: 100%;
   padding: 25px;

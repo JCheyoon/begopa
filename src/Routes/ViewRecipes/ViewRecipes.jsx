@@ -1,8 +1,10 @@
+import { Page } from '../../Components/Page/Page.style'
+
 const ViewRecipes = () => {
   return (
-    <div>
+    <Page>
       <h1>BroseRecipe</h1>
-    </div>
+    </Page>
   )
 }
 export default ViewRecipes

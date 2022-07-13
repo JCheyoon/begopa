@@ -1,6 +1,7 @@
 import { NavigationContainer, LogoContainer, LogoWithTextSvg } from './Navigation.style'
 import { useEffect, useState } from 'react'
 import Navbar from './Navbar/Navbar.component'
+import { Link } from 'react-router-dom'
 
 const Navigation = () => {
   const [isSticky, setIsSticky] = useState(false)
@@ -14,8 +15,10 @@ const Navigation = () => {
   return (
     <NavigationContainer className={isSticky ? 'sticky' : ''}>
       {!isSticky && (
-        <LogoContainer to="/">
-          <LogoWithTextSvg />
+        <LogoContainer>
+          <Link to="/">
+            <LogoWithTextSvg />
+          </Link>
         </LogoContainer>
       )}
 

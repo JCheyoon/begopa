@@ -1,8 +1,10 @@
+import { Page } from '../../Components/Page/Page.style'
+
 const SubmitRecipe = () => {
   return (
-    <div>
+    <Page>
       <h1>Submit</h1>
-    </div>
+    </Page>
   )
 }
 
