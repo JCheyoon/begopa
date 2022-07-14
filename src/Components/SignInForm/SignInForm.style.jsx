@@ -8,10 +8,17 @@ export const SignInFormContainer = styled.div`
   span {
     margin: 10px 0;
     text-align: center;
-    color: var(--orange);
+    color: var(--light-black);
+    font-weight: 300;
   }
   span {
     color: var(--gray);
+    cursor: pointer;
+    transition: ease-in 300ms;
+
+    &:hover {
+      color: var(--orange);
+    }
   }
 `
 
@@ -23,12 +30,17 @@ export const SignInButtonContainer = styled.div`
 
 export const SignInButton = styled.button`
   text-decoration: none;
-  border-radius: 30px;
-  background-color: var(--orange);
-  border: none;
-  color: var(--white);
-  width: 100px;
-  padding: 20px 0;
-  font-weight: bold;
+  border-radius: 10px;
+  background-color: var(--white);
+  border: 2px solid var(--light-black);
+  color: var(--light-black);
+  width: 200px;
+  padding: 10px 0;
+  font-weight: 700;
   cursor: pointer;
+  transition: ease-in-out 250ms;
+  &:hover {
+    color: var(--white);
+    background-color: var(--light-black);
+  }
 `

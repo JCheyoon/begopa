@@ -1,20 +1,5 @@
 import styled from 'styled-components'
 
-export const FormInputLabel = styled.label`
-  color: var(--gray);
-  font-size: 16px;
-  font-weight: normal;
-  position: absolute;
-  pointer-events: none;
-  left: 5px;
-  top: 10px;
-  transition: 300ms ease all;
-
-  &.focus {
-    color: transparent;
-  }
-`
-
 export const Input = styled.input`
   background-color: white;
   color: var(--black);
@@ -29,9 +14,13 @@ export const Input = styled.input`
   &:focus {
     outline: none;
   }
+
+  ::placeholder {
+    color: var(--orange);
+  }
 `
 
-export const Group = styled.div`
+export const FormInputContainer = styled.div`
   position: relative;
   margin: 45px 0;
 `

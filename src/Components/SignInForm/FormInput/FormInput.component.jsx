@@ -1,11 +1,10 @@
-import { FormInputLabel, Input, Group } from './FormInput.style'
+import { Input, FormInputContainer } from './FormInput.style'
 
-const FormInput = ({ label }) => {
+const FormInput = ({ label, ...otherProps }) => {
   return (
-    <Group>
-      <Input />
-      <FormInputLabel>{label}</FormInputLabel>
-    </Group>
+    <FormInputContainer>
+      <Input placeholder={label} {...otherProps} />
+    </FormInputContainer>
   )
 }
 
