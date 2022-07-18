@@ -1,5 +1,6 @@
-import { RecentRecipeContainer, ViewRecipesBtn } from './RecentRecipe.style'
+import { RecentRecipeContainer } from './RecentRecipe.style'
 import Cards from './Cards/Cards.component'
+import { PageBtn } from '../Page/Page.style'
 
 const RecentRecipe = () => {
   return (
@@ -7,7 +8,7 @@ const RecentRecipe = () => {
       <h3>Recent Recipes</h3>
       <h1>Latest Recipes</h1>
       <Cards />
-      <ViewRecipesBtn>View All Recipes</ViewRecipesBtn>
+      <PageBtn>View All Recipes</PageBtn>
     </RecentRecipeContainer>
   )
 }
