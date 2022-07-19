@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { SignInButton, SignInButtonContainer, SignInFormContainer } from './SignInForm.style'
+import { SignInButtonContainer, SignInFormContainer } from './SignInForm.style'
 import FormInput from './FormInput/FormInput.component'
+import { PageBtn } from '../Page/Page.style'
 
 const defaultFormValue = {
   email: '',
@@ -65,9 +66,7 @@ const SignInForm = () => {
         ) : null}
 
         <SignInButtonContainer>
-          <SignInButton type="submit">
-            {formType === FormType.LOGIN ? 'LOGIN' : 'SIGN UP'}
-          </SignInButton>
+          <PageBtn type="submit">{formType === FormType.LOGIN ? 'LOGIN' : 'SIGN UP'}</PageBtn>
         </SignInButtonContainer>
       </form>
 

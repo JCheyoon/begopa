@@ -13,6 +13,8 @@ export const PageBtn = styled.button`
   color: var(--white);
   font-weight: 600;
   cursor: pointer;
+  transition: ease-in-out 250ms;
+
   &:hover {
     background-color: var(--dark-orange);
   }

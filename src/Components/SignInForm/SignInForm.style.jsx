@@ -27,20 +27,3 @@ export const SignInButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
 `
-
-export const SignInButton = styled.button`
-  text-decoration: none;
-  border-radius: 10px;
-  background-color: var(--white);
-  border: 2px solid var(--light-black);
-  color: var(--light-black);
-  width: 200px;
-  padding: 10px 0;
-  font-weight: 700;
-  cursor: pointer;
-  transition: ease-in-out 250ms;
-  &:hover {
-    color: var(--white);
-    background-color: var(--light-black);
-  }
-`
