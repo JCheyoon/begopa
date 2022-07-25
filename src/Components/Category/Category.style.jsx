@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const CategoriesContainer = styled.div`
   text-align: center;
-  padding-bottom: 60px;
+  padding: 60px 0;
 `
 export const CategoryContainer = styled.div`
   width: 100%;

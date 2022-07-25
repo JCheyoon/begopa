@@ -1,9 +1,13 @@
 import { CardWrapper, CardImg, CardDescription, CardTime } from '../Card/Card.style'
+import { Link } from 'react-router-dom'
 
 const Card = ({ recipeName, imgUrl, time, tags }) => {
   return (
     <CardWrapper>
-      <CardImg imgUrl={imgUrl} />
+      <Link to="/recipe">
+        <CardImg imgUrl={imgUrl} />
+      </Link>
+
       <CardDescription>
         <h1>{recipeName}</h1>
         <CardTime>

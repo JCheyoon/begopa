@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const Page = styled.div`
-  padding-top: 255px;
+  padding-top: 200px;
 `
-export const PageBtn = styled.button`
+export const Button = styled.button`
   text-decoration: none;
   border: none;
   background-color: var(--orange);
@@ -17,5 +17,13 @@ export const PageBtn = styled.button`
 
   &:hover {
     background-color: var(--dark-orange);
+  }
+
+  &:disabled {
+    background-color: var(--gray);
+    cursor: not-allowed;
+    &:hover {
+      background-color: var(--gray);
+    }
   }
 `

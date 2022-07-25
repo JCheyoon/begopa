@@ -6,6 +6,7 @@ export const SubmitRecipeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
+  padding: 60px 0;
   h1,
   h2 {
     color: var(--light-black);

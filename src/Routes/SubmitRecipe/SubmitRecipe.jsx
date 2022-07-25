@@ -1,4 +1,4 @@
-import { Page, PageBtn } from '../../Components/Page/Page.style'
+import { Page, Button } from '../../Components/Page/Page.style'
 import {
   SubmitRecipeContainer,
   SubmitRecipeSection,
@@ -201,7 +201,7 @@ const SubmitRecipe = () => {
                   <label htmlFor="public">Please Check if you want to save in public</label>
                 </SubmitRecipeInput>
               </SubmitRecipeSection>
-              <PageBtn type="submit">Save</PageBtn>
+              <Button type="submit">Save</Button>
             </form>
           )}
         </Formik>

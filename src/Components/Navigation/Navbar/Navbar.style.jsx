@@ -6,7 +6,6 @@ export const NavbarContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
   border-bottom: 1px solid var(--light-gray);
 `
 
@@ -25,6 +24,26 @@ export const NavLink = styled(Link)`
     color: var(--dark-gray);
   }
 `
+export const NavButton = styled.button`
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: var(--gray);
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-family: 'Barlow', sans-serif;
+
+  span {
+    margin-left: 7px;
+  }
+
+  &:hover {
+    color: var(--dark-gray);
+  }
+`
+
 export const SearchContainer = styled.div`
   flex-grow: 2;
   padding: 10px 15px;

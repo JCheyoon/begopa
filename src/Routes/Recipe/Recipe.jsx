@@ -1,15 +1,17 @@
 import { Page } from '../../Components/Page/Page.style'
 import Footer from '../../Components/Footer/Footer.component'
 import RecipeHeader from '../../Components/RecipeHeader/RecipeHeader.component'
-import Cards from '../../Components/RecentRecipe/Cards/Cards.component'
+import RecipeItems from '../../Components/RecipeItems/RecipeItems.component'
+import ScrollUp from '../../Components/ScrollUp/ScrollUp.component'
 
-const ViewRecipes = () => {
+const Recipe = () => {
   return (
     <Page>
       <RecipeHeader />
-      <Cards />
+      <RecipeItems />
       <Footer />
+      <ScrollUp />
     </Page>
   )
 }
-export default ViewRecipes
+export default Recipe

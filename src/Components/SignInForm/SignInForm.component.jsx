@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { SignInButtonContainer, SignInFormContainer } from './SignInForm.style'
 import FormInput from './FormInput/FormInput.component'
-import { PageBtn } from '../Page/Page.style'
+import { Button } from '../Page/Page.style'
+import { useAxios } from '../../Hooks/useAxios'
+import { useContextAuth } from '../../Context/authContext'
 
 const defaultFormValue = {
   email: '',
@@ -14,24 +17,67 @@ const FormType = {
 }
 
 const SignInForm = () => {
+  const { post } = useAxios()
+  const { handleLogin } = useContextAuth()
   const [formFields, setFormFields] = useState(defaultFormValue)
   const [confirmPassword, setConfirmPassword] = useState('')
   const [formType, setFormType] = useState(FormType.LOGIN)
 
   const { email, password } = formFields
+  const navigate = useNavigate()
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    console.log('submit')
+    if (formType === FormType.SIGNUP) {
+      try {
+        const response = await post('/user/signup', formFields)
+        console.log('signup', response.data)
+        setFormType(FormType.LOGIN)
+        resetForm()
+        // TODO show message about successful signup
+        setTimeout(() => {
+          alert('You can login now!')
+        }, 200)
+      } catch (e) {
+        switch (e.response.data.message) {
+          case 'EMAIL_REGISTERED':
+            alert('Already registered')
+            break
+          default:
+            console.log('shit happened at signup', e.response.data.message)
+        }
+      }
+    } else if (formType === FormType.LOGIN) {
+      try {
+        const response = await post('/user/login', formFields)
+        handleLogin(response.data)
+        navigate('/')
+      } catch (e) {
+        switch (e.response.data.message) {
+          case 'INVALID_CREDENTIALS':
+            alert('user not found')
+            break
+          case 'INVALID_FORMAT':
+            alert('Incorrect password and email')
+          default:
+            console.log('shit happened at login', e.response.data.message)
+        }
+      }
+    }
   }
   const handleChange = e => {
-    console.log(e.target.name, e.target.value)
     const { name, value } = e.target
     setFormFields({ ...formFields, [name]: value })
   }
 
   const changeForm = () => {
     setFormType(formType === FormType.LOGIN ? FormType.SIGNUP : FormType.LOGIN)
+    resetForm()
+  }
+
+  const resetForm = () => {
+    setFormFields({ email: '', password: '' })
+    setConfirmPassword('')
   }
 
   return (
@@ -66,7 +112,16 @@ const SignInForm = () => {
         ) : null}
 
         <SignInButtonContainer>
-          <PageBtn type="submit">{formType === FormType.LOGIN ? 'LOGIN' : 'SIGN UP'}</PageBtn>
+          <Button
+            type="submit"
+            disabled={
+              formType === FormType.LOGIN
+                ? !email || !password
+                : !email || !password || !confirmPassword || password !== confirmPassword
+            }
+          >
+            {formType === FormType.LOGIN ? 'LOGIN' : 'SIGN UP'}
+          </Button>
         </SignInButtonContainer>
       </form>
 

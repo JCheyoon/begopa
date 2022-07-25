@@ -1,5 +1,6 @@
 import Card from '../Card/Card.component'
 import { CardGrid } from './Cards.style'
+import { Link } from 'react-router-dom'
 
 const recipeSample = [
   {
