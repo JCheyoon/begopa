@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const RecentRecipeContainer = styled.div`
+export const BrowseRecipesContainer = styled.div`
   height: 100%;
   text-align: center;
   background-image: url('/pattern.png');

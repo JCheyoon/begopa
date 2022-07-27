@@ -34,7 +34,6 @@ const SignInForm = () => {
         console.log('signup', response.data)
         setFormType(FormType.LOGIN)
         resetForm()
-        // TODO show message about successful signup
         setTimeout(() => {
           alert('You can login now!')
         }, 200)

@@ -1,4 +1,5 @@
 import { Page, Button } from '../../Components/Page/Page.style'
+import { useNavigate } from 'react-router-dom'
 import {
   SubmitRecipeContainer,
   SubmitRecipeSection,
@@ -9,6 +10,7 @@ import {
 } from './SubmitRecipe.style'
 import { Formik } from 'formik'
 import { useRef } from 'react'
+import { useContextRecipe } from '../../Context/recipeContext'
 
 const initialIngredient = { amount: 0, unit: '', material: '' }
 
@@ -24,6 +26,9 @@ const initialValues = {
 }
 
 const SubmitRecipe = () => {
+  const navigate = useNavigate()
+
+  const { saveNewRecipe } = useContextRecipe()
   const formRef = useRef(null)
 
   const removeIngredientHandler = index => {
@@ -55,12 +60,18 @@ const SubmitRecipe = () => {
     setFieldValue('tags', newTags)
   }
 
-  const submitForm = values => {
+  const submitForm = async values => {
     console.log('submitting', values)
+    if (!formRef?.current) return
 
-    // if (!formRef?.current) return
-    // const { resetForm } = formRef.current
-    // resetForm()
+    try {
+      const response = await saveNewRecipe(values)
+      console.log(response.data)
+      navigate(`/recipe/${response.data.id}`)
+    } catch (e) {
+      // TODO show message
+      console.log('Could not save recipe', e.response.data.message)
+    }
   }
 
   return (

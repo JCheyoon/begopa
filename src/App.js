@@ -7,18 +7,21 @@ import SubmitRecipe from '../src/Routes/SubmitRecipe/SubmitRecipe'
 import Navigation from './Components/Navigation/Navigation.component'
 import MyRecipes from './Routes/MyRecipes/MyRecipes'
 import { AuthProvider } from './Context/authContext'
+import { RecipeProvider } from './Context/recipeContext'
 
 function App() {
   return (
     <AuthProvider>
-      <Navigation />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="auth" element={<Authentication />} />
-        <Route path="recipe" element={<Recipe />} />
-        <Route path="submit" element={<SubmitRecipe />} />
-        <Route path="my-recipes" element={<MyRecipes />} />
-      </Routes>
+      <RecipeProvider>
+        <Navigation />
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="auth" element={<Authentication />} />
+          <Route path="recipe/:id" element={<Recipe />} />
+          <Route path="submit" element={<SubmitRecipe />} />
+          <Route path="my-recipes" element={<MyRecipes />} />
+        </Routes>
+      </RecipeProvider>
     </AuthProvider>
   )
 }
