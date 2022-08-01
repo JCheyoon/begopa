@@ -37,10 +37,15 @@ export const CookingTime = styled.div`
     font-size: 18px;
   }
 `
-export const Time = styled.div``
+export const Time = styled.div`
+  display: flex;
+  align-items: center;
+`
 
 export const Photo = styled.div`
-  background-color: aquamarine;
+  background-size: cover;
+  background-position: center;
+  background-image: ${({ photoUrl }) => `url(${photoUrl})`};
   width: 900px;
   height: 500px;
   margin-top: 30px;
@@ -62,6 +67,11 @@ export const InstructionsContainer = styled.div`
     margin: 5px 0;
     padding-right: 10px;
     font-size: 20px;
+  }
+  p {
+    font-size: 20px;
+
+    white-space: pre-wrap;
   }
 `
 
@@ -86,6 +96,11 @@ export const RecipeItemCategoriesContainer = styled.div`
   width: 900px;
   border-top: 1px solid var(--light-gray);
   margin: 30px 0;
+  span {
+    margin: 5px 0;
+    padding-right: 10px;
+    font-size: 20px;
+  }
 `
 export const RelatedRecipeContainer = styled.div`
   height: 650px;

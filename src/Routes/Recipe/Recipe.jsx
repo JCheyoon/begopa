@@ -28,10 +28,20 @@ const Recipe = () => {
     }
   }
 
+  if (!recipe) return null
+
   return (
     <Page>
-      <RecipeHeader />
-      <RecipeItems />
+      <RecipeHeader name={recipe.name} />
+      <RecipeItems
+        cookingTime={recipe.cookingTime}
+        updatedAt={recipe.updatedAt}
+        instructions={recipe.instructions}
+        photoUrl={recipe.photoUrl}
+        ingredients={recipe.ingredients}
+        tags={recipe.tags}
+        servings={recipe.servings}
+      />
       <Footer />
       <ScrollUp />
     </Page>
