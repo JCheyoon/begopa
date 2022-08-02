@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useAxios } from '../Hooks/useAxios'
+import { useNavigate } from 'react-router-dom'
 
 const STORAGE_KEY = 'begopa-user'
 const ONE_DAY_IN_MILLIS = 1000 * 60 * 60 * 24
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const { post } = useAxios()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [token, setToken] = useState()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const storedData = localStorage.getItem(STORAGE_KEY)
@@ -52,6 +54,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem(STORAGE_KEY)
     setIsLoggedIn(false)
     setToken(undefined)
+    navigate('/')
   }
 
   const refreshToken = async (userInfo, token) => {

@@ -6,7 +6,7 @@ const RecipeContext = createContext({})
 
 export const RecipeProvider = ({ children }) => {
   const { token } = useContextAuth()
-  const { post, get } = useAxios()
+  const { post, get, remove } = useAxios()
   const [allRecipes, setAllRecipes] = useState([])
   const [filteredRecipes, setFilteredRecipes] = useState([])
 
@@ -14,6 +14,12 @@ export const RecipeProvider = ({ children }) => {
     const response = await get('/recipe/list-recent')
     if (!response?.data) return
     setFilteredRecipes([...response.data])
+  }
+
+  const fetchMyRecipes = async () => {
+    const response = await get('/recipe/my-list', token)
+    if (!response?.data) return
+    setAllRecipes([...response.data])
   }
 
   const fetchAllRecipes = async () => {
@@ -28,11 +34,18 @@ export const RecipeProvider = ({ children }) => {
     return post('/recipe', recipeData, token)
   }
 
+  const deleteRecipe = id => {
+    return remove(`/recipe/${id}`, token)
+  }
+
   const value = {
     saveNewRecipe,
     filteredRecipes,
     fetchRecentRecipes,
     fetchAllRecipes,
+    fetchMyRecipes,
+    allRecipes,
+    deleteRecipe,
   }
 
   return <RecipeContext.Provider value={value}>{children}</RecipeContext.Provider>

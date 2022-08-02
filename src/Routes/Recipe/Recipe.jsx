@@ -20,7 +20,6 @@ const Recipe = () => {
   const fetchRecipe = async id => {
     try {
       const response = await get(`/recipe/${id}`)
-      console.log(response.data)
       setRecipe(response.data)
     } catch (e) {
       console.log('Could not fetch recipe', e.response.data.message)

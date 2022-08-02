@@ -70,3 +70,27 @@ export const CardTime = styled.div`
     margin-left: 5px;
   }
 `
+export const DeleteContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 340px;
+  padding-top: 40px;
+  color: var(--gray);
+`
+
+export const DeleteButton = styled.button`
+  color: var(--gray);
+
+  text-decoration: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+
+  span {
+    &:hover {
+      color: red;
+    }
+  }
+`
