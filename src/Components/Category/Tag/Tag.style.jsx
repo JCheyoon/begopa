@@ -9,11 +9,12 @@ export const TagBubble = styled.button`
   font-weight: bold;
   border: 2px solid var(--gray);
   background-color: var(--white);
-  margin: 4px 10px;
+  margin-top: 20px;
+  margin-right: 20px;
   cursor: pointer;
 
   &.big {
-    font-size: 25px;
+    font-size: 28px;
   }
   &:hover {
     color: var(--orange);

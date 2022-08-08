@@ -12,6 +12,12 @@ import { Formik } from 'formik'
 import { useRef } from 'react'
 import { useContextRecipe } from '../../Context/recipeContext'
 
+function fixValues(values) {
+  const copy = { ...values }
+  copy.tags = copy.tags.map(tag => tag.charAt(0).toUpperCase() + tag.slice(1))
+  return copy
+}
+
 const initialIngredient = { amount: 0, unit: '', material: '' }
 
 const initialValues = {
@@ -64,8 +70,10 @@ const SubmitRecipe = () => {
     console.log('submitting', values)
     if (!formRef?.current) return
 
+    const fixedValues = fixValues(values)
+
     try {
-      const response = await saveNewRecipe(values)
+      const response = await saveNewRecipe(fixedValues)
       console.log(response.data)
       navigate(`/recipe/${response.data.id}`)
     } catch (e) {

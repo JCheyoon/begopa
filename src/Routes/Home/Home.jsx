@@ -7,7 +7,7 @@ import { useContextRecipe } from '../../Context/recipeContext'
 import { useEffect } from 'react'
 
 const Home = () => {
-  const { fetchRecentRecipes } = useContextRecipe()
+  const { fetchInitialRecipes } = useContextRecipe()
 
   useEffect(() => {
     fetchRecents()
@@ -15,7 +15,7 @@ const Home = () => {
 
   const fetchRecents = async () => {
     try {
-      await fetchRecentRecipes()
+      await fetchInitialRecipes()
     } catch (e) {
       console.log('Could not fetch recent recipes', e.response.data.message)
       // TODO handle error properly

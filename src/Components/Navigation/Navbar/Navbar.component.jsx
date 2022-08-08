@@ -1,14 +1,24 @@
 import { NavbarContainer, SearchContainer, NavLink, NavButton } from '../Navbar/Navbar.style'
 import { useContextAuth } from '../../../Context/authContext'
+import { useState } from 'react'
+import { useContextRecipe } from '../../../Context/recipeContext'
 
 const Navbar = () => {
   const { isLoggedIn, handleLogout } = useContextAuth()
+  const [searchField, setSearchField] = useState('')
+  const { filterByName } = useContextRecipe()
+
+  const onSearchChange = e => {
+    const searchFieldString = e.target.value.toLowerCase()
+    setSearchField(searchFieldString)
+  }
+
   return (
     <NavbarContainer>
       <SearchContainer>
         Browse Recipes
-        <input type="text" placeholder="Find a recipe..." />
-        <button type="submit">
+        <input type="text" placeholder="Find a recipe..." onChange={onSearchChange} />
+        <button type="submit" onClick={() => filterByName(searchField)}>
           <span className="material-symbols-outlined">search</span>
         </button>
       </SearchContainer>

@@ -29,7 +29,9 @@ const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe }) => {
       </Link>
 
       <CardDescription>
-        <h1>{recipeName}</h1>
+        <Link to={`/recipe/${recipeId}`}>
+          <h1>{recipeName}</h1>
+        </Link>
         <CardTime>
           <span className="material-symbols-outlined">timer</span>
           <h2>{time}</h2>

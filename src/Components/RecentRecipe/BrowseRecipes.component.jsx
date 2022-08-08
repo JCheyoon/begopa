@@ -11,7 +11,7 @@ const recipeTitles = {
 }
 
 const BrowseRecipes = () => {
-  const { filteredRecipes, fetchAllRecipes } = useContextRecipe()
+  const { allRecipes, filteredRecipes, fetchAllRecipes } = useContextRecipe()
   const [title, setTitle] = useState(recipeTitles.recent)
 
   const viewAllRecipes = async () => {
@@ -29,7 +29,7 @@ const BrowseRecipes = () => {
       <h3>Browse Recipes</h3>
       <h1>{title}</h1>
       <Cards recipes={filteredRecipes} />
-      {title !== recipeTitles.all ? (
+      {allRecipes.length !== filteredRecipes.length ? (
         <Button onClick={viewAllRecipes}>View All Recipes</Button>
       ) : null}
     </BrowseRecipesContainer>
