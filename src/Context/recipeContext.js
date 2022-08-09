@@ -60,7 +60,7 @@ export const RecipeProvider = ({ children }) => {
   const filterByTag = tag => {
     // get the tag as the parameter
     // filter allRecipes array to those which recipe.tags include the selected tag
-    const filtered = allRecipes.filter(function (recipe) {
+    const filtered = allRecipes.filter(recipe => {
       return recipe.tags.includes(tag)
     })
     // set the setFilteredRecipes to this filtered array
@@ -68,10 +68,17 @@ export const RecipeProvider = ({ children }) => {
   }
 
   const filterByName = searchField => {
-    const filtered = allRecipes.filter(function (recipe) {
+    const filtered = allRecipes.filter(recipe => {
       return recipe.name.toLowerCase().includes(searchField)
     })
     setFilteredRecipes(filtered)
+  }
+
+  const getRelatedRecipes = (tags, id) => {
+    const filtered = allRecipes.filter(recipe => {
+      return tags.some(tag => recipe.tags.includes(tag)) && recipe.id !== id
+    })
+    return filtered.slice(0, 3)
   }
 
   const value = {
@@ -85,6 +92,7 @@ export const RecipeProvider = ({ children }) => {
     tags,
     filterByTag,
     filterByName,
+    getRelatedRecipes,
   }
 
   return <RecipeContext.Provider value={value}>{children}</RecipeContext.Provider>

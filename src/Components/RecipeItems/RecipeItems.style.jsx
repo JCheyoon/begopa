@@ -65,7 +65,6 @@ export const InstructionsContainer = styled.div`
   }
   span {
     margin: 5px 0;
-    padding-right: 10px;
     font-size: 20px;
   }
   p {
@@ -75,16 +74,21 @@ export const InstructionsContainer = styled.div`
   }
 `
 
-export const ServingInput = styled.input`
-  border: 1px solid var(--gray);
+export const ServingInput = styled.span`
   width: 60px;
   height: 30px;
+
+  span {
+    font-family: 'Barlow', sans-serif;
+    color: var(--light-black);
+    font-size: 18px;
+  }
 `
 
 export const Ingredient = styled.div`
   margin-top: 20px;
   span {
-    padding-right: 10px;
+    padding: 0 10px;
   }
 `
 export const DescriptionContainer = styled.div`
@@ -102,32 +106,12 @@ export const RecipeItemCategoriesContainer = styled.div`
     font-size: 20px;
   }
 `
-export const RelatedRecipeContainer = styled.div`
-  height: 650px;
-  width: 400px;
-  background-color: var(--light-gray);
-  margin-top: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
 
-  h1 {
-    padding-bottom: 10px;
-  }
-`
-export const RelatedRecipe = styled.div`
-  width: 300px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 40px 0;
-  border-bottom: 2px solid var(--light-black);
-`
+export const ArrowButton = styled.button`
+  cursor: pointer;
+  text-decoration: none;
+  background: none;
+  border: none;
 
-export const RelateRecipePic = styled.div`
-  background-color: brown;
-  width: 70px;
-  height: 70px;
-  margin-right: 20px;
+  font-size: 18px;
 `

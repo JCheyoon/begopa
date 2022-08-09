@@ -74,7 +74,6 @@ const SubmitRecipe = () => {
 
     try {
       const response = await saveNewRecipe(fixedValues)
-      console.log(response.data)
       navigate(`/recipe/${response.data.id}`)
     } catch (e) {
       // TODO show message

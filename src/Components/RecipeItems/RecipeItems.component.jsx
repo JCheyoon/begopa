@@ -1,4 +1,5 @@
 import {
+  ArrowButton,
   CookingTime,
   DescriptionContainer,
   Ingredient,
@@ -8,12 +9,11 @@ import {
   RecipeItemCategoriesContainer,
   RecipeItemsContainer,
   RecipeItemsSection,
-  RelatedRecipe,
-  RelatedRecipeContainer,
-  RelateRecipePic,
   ServingInput,
   Time,
 } from './RecipeItems.style'
+import RelatedRecipes from '../RelatedRecipes/RelatedRecipes.component'
+import { useState } from 'react'
 
 const RecipeItems = ({
   cookingTime,
@@ -23,13 +23,26 @@ const RecipeItems = ({
   ingredients,
   servings,
   tags,
+  id,
 }) => {
+  const [servingValue, setServingValue] = useState(servings)
+  const [multiplier, setMultiplier] = useState(1)
+
   const changeCreateTime = string => {
     const date = new Date(string)
     return date.toLocaleString()
   }
-  const onChange = () => {
-    console.log('change')
+  const increaseAmount = () => {
+    const newServings = servingValue + 1
+    setServingValue(newServings)
+    setMultiplier(newServings / servings)
+  }
+
+  const decreaseAmount = () => {
+    const newServings = servingValue - 1
+    if (newServings === 0) return
+    setMultiplier(newServings / servings)
+    setServingValue(newServings)
   }
   return (
     <RecipeItemsContainer>
@@ -46,15 +59,18 @@ const RecipeItems = ({
           <InstructionsContainer>
             <h1>Ingredients</h1>
             <span>Adjust Servings</span>
-            <ServingInput type="number" value={servings} onChange={onChange}></ServingInput>
+            <ArrowButton onClick={decreaseAmount}> &#10094;</ArrowButton>
+            <ServingInput>
+              <span>{servingValue}</span>
+            </ServingInput>
+            <ArrowButton onClick={increaseAmount}>&#10095;</ArrowButton>
             {ingredients.map(({ amount, unit, material }) => (
               <Ingredient key={material}>
-                <span>{amount}</span>
+                <span>{amount * multiplier}</span>
                 <span>{unit}</span>
                 <span>{material}</span>
               </Ingredient>
             ))}
-
             <DescriptionContainer>
               <h1>Directions</h1>
               <p>{instructions}</p>
@@ -67,22 +83,9 @@ const RecipeItems = ({
             ))}
           </RecipeItemCategoriesContainer>
         </MainSection>
-
-        <RelatedRecipeContainer>
-          <h1>Related recipe</h1>
-          <RelatedRecipe>
-            <RelateRecipePic />
-            <span>STAKE NYAM NYAM</span>
-          </RelatedRecipe>
-          <RelatedRecipe>
-            <RelateRecipePic />
-            <span>STAKE NYAM NYAM</span>
-          </RelatedRecipe>
-          <RelatedRecipe>
-            <RelateRecipePic />
-            <span>STAKE NYAM NYAM</span>
-          </RelatedRecipe>
-        </RelatedRecipeContainer>
+        <div>
+          <RelatedRecipes tags={tags} id={id} />
+        </div>
       </RecipeItemsSection>
     </RecipeItemsContainer>
   )

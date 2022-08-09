@@ -13,11 +13,22 @@ const Navbar = () => {
     setSearchField(searchFieldString)
   }
 
+  const handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      filterByName(searchField)
+    }
+  }
+
   return (
     <NavbarContainer>
       <SearchContainer>
         Browse Recipes
-        <input type="text" placeholder="Find a recipe..." onChange={onSearchChange} />
+        <input
+          type="text"
+          placeholder="Find a recipe..."
+          onChange={onSearchChange}
+          onKeyUp={handleKeyPress}
+        />
         <button type="submit" onClick={() => filterByName(searchField)}>
           <span className="material-symbols-outlined">search</span>
         </button>

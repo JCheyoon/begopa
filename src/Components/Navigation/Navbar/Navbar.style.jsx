@@ -6,7 +6,16 @@ export const NavbarContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap-reverse;
+
   border-bottom: 1px solid var(--light-gray);
+
+  @media (min-width: 480px) {
+    height: 70px;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+  }
 `
 
 export const NavLink = styled(Link)`

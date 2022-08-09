@@ -9,7 +9,7 @@ const Footer = () => {
             mail
           </span>
         </FooterLink>
-        <FooterLink href="https://linkedin.com/" target="_blank">
+        <FooterLink href="https://www.linkedin.com/in/cheyoon-jung-11148b19b/" target="_blank">
           <LinkedinLogo />
         </FooterLink>
         <FooterLink href="https://github.com/JCheyoon" target="_blank">

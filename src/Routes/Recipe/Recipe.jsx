@@ -6,14 +6,19 @@ import ScrollUp from '../../Components/ScrollUp/ScrollUp.component'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useAxios } from '../../Hooks/useAxios'
+import { useContextRecipe } from '../../Context/recipeContext'
 
 const Recipe = () => {
   const { id } = useParams()
   const { get } = useAxios()
+  const { allRecipes, fetchInitialRecipes } = useContextRecipe()
   const [recipe, setRecipe] = useState()
 
   useEffect(() => {
     if (!id) return
+    if (!allRecipes.length) {
+      fetchInitialRecipes()
+    }
     fetchRecipe(id)
   }, [id])
 
@@ -33,6 +38,7 @@ const Recipe = () => {
     <Page>
       <RecipeHeader name={recipe.name} />
       <RecipeItems
+        name={recipe.name}
         cookingTime={recipe.cookingTime}
         updatedAt={recipe.updatedAt}
         instructions={recipe.instructions}
@@ -40,6 +46,7 @@ const Recipe = () => {
         ingredients={recipe.ingredients}
         tags={recipe.tags}
         servings={recipe.servings}
+        id={id}
       />
       <Footer />
       <ScrollUp />
