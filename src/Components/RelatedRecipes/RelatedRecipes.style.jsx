@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const RelatedRecipeContainer = styled.div`
   width: 400px;
   background-color: var(--light-gray);
-  margin-top: 30px;
+  margin-top: 10px;
   padding: 30px 50px;
 
   h1 {

@@ -6,7 +6,7 @@ export const SubmitRecipeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
-  padding: 60px 0;
+  padding: 100px 0;
   h1,
   h2 {
     color: var(--light-black);
@@ -17,12 +17,17 @@ export const SubmitRecipeContainer = styled.div`
   h2 {
     padding-left: 20px;
   }
+
+  @media (min-width: 750px) {
+    padding: 60px 0;
+  }
 `
 
 export const SubmitRecipeSection = styled.section`
-  width: 1000px;
+  width: 360px;
   margin-bottom: 10px;
   background-color: var(--white-yellow);
+  margin-top: 20px;
 
   &.header {
     display: flex;
@@ -52,6 +57,17 @@ export const SubmitRecipeSection = styled.section`
     label {
       width: 600px;
     }
+  }
+  @media (min-width: 570px) {
+    width: 600px;
+  }
+
+  @media (min-width: 750px) {
+    width: 800px;
+  }
+
+  @media (min-width: 980px) {
+    width: 1000px;
   }
 `
 
@@ -88,10 +104,20 @@ export const SubmitRecipeInput = styled.div`
     }
 
     textarea {
-      width: 800px;
+      width: 300px;
       border: none;
       border-bottom: 1px solid var(--black);
       background: none;
+
+      @media (min-width: 570px) {
+        width: 500px;
+      }
+      @media (min-width: 750px) {
+        width: 700px;
+      }
+      @media (min-width: 980px) {
+        width: 800px;
+      }
 
       &:focus {
         outline: none;
@@ -140,6 +166,7 @@ export const AddItemButton = styled.button`
 
 export const ListItemsContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin-left: 20px;
   margin-bottom: 20px;
   input {
@@ -154,6 +181,10 @@ export const ListItemsContainer = styled.div`
     }
     ::placeholder {
       color: var(--gray);
+    }
+
+    @media (min-width: 720px) {
+      flex-wrap: nowrap;
     }
   }
 `

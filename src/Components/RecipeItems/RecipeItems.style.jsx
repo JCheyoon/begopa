@@ -2,24 +2,39 @@ import styled from 'styled-components'
 
 export const RecipeItemsContainer = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 `
 
 export const RecipeItemsSection = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  margin-left: 30px;
 `
 export const MainSection = styled.div`
+  width: 420px;
   display: flex;
   flex-direction: column;
+
+  @media (min-width: 600px) {
+    width: 530px;
+  }
+
+  @media (min-width: 750px) {
+    width: 730px;
+  }
+
+  @media (min-width: 980px) {
+    width: 930px;
+  }
 `
 
 export const CookingTime = styled.div`
   background-color: var(--light-gray);
-  width: 900px;
+
   height: 100px;
-  margin-top: 30px;
+  margin-top: 10px;
   margin-right: 30px;
   display: flex;
   justify-content: space-between;
@@ -46,10 +61,22 @@ export const Photo = styled.div`
   background-size: cover;
   background-position: center;
   background-image: ${({ photoUrl }) => `url(${photoUrl})`};
-  width: 900px;
+  width: 390px;
   height: 500px;
   margin-top: 30px;
   margin-right: 30px;
+
+  @media (min-width: 600px) {
+    width: 500px;
+  }
+
+  @media (min-width: 750px) {
+    width: 700px;
+  }
+
+  @media (min-width: 980px) {
+    width: 900px;
+  }
 `
 
 export const InstructionsContainer = styled.div`

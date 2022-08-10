@@ -2,19 +2,21 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const NavbarContainer = styled.div`
-  height: 70px;
+  height: 150px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap-reverse;
+  padding-top: 130px;
 
   border-bottom: 1px solid var(--light-gray);
 
-  @media (min-width: 480px) {
+  @media (min-width: 750px) {
     height: 70px;
-    width: 100%;
-    justify-content: space-between;
+    padding-top: 0;
     flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
   }
 `
 
@@ -54,8 +56,8 @@ export const NavButton = styled.button`
 `
 
 export const SearchContainer = styled.div`
-  flex-grow: 2;
-  padding: 10px 15px;
+  flex-grow: 4;
+  padding: 10px 35px;
   color: var(--gray);
   display: flex;
   align-items: center;
@@ -71,6 +73,10 @@ export const SearchContainer = styled.div`
     &:focus {
       outline: none;
       border-color: var(--orange);
+    }
+
+    @media (min-width: 750px) {
+      padding: 10px 15px;
     }
   }
 
