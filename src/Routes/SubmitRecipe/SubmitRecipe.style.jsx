@@ -136,6 +136,7 @@ export const SubmitRecipeInput = styled.div`
     label {
       transition: ease-in-out 200ms;
       color: var(--gray);
+      width: 330px;
 
       &:hover {
         cursor: pointer;

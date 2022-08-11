@@ -1,19 +1,37 @@
 import styled from 'styled-components'
 
 export const RecipeItemsContainer = styled.div`
+  width: 360px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: 600px) {
+    width: 100%;
+  }
 `
 
 export const RecipeItemsSection = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 40px;
-  margin-left: 30px;
+  padding: 0;
+  margin-left: 0;
+  align-items: center;
+  
+
+  @media (min-width: 750px) {
+    margin-left: 20px;
+    align-items: normal;
+
+  }
+  @media (min-width: 980px) {
+    margin-left: 90px;
+    padding: 40px;
+  }
+  }
 `
 export const MainSection = styled.div`
-  width: 420px;
+  width: 360px;
   display: flex;
   flex-direction: column;
 
@@ -32,14 +50,18 @@ export const MainSection = styled.div`
 
 export const CookingTime = styled.div`
   background-color: var(--light-gray);
-
   height: 100px;
   margin-top: 10px;
-  margin-right: 30px;
+  margin-right: 0;
+  margin-left: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
+  @media (min-width: 600px) {
+    margin-left: 0;
+    margin-right: 30px;
+  }
   span {
     font-size: 30px;
     padding-left: 20px;
@@ -61,13 +83,16 @@ export const Photo = styled.div`
   background-size: cover;
   background-position: center;
   background-image: ${({ photoUrl }) => `url(${photoUrl})`};
-  width: 390px;
+  width: 345px;
   height: 500px;
   margin-top: 30px;
-  margin-right: 30px;
+  margin-right: 0;
+  margin-left: 15px;
 
   @media (min-width: 600px) {
     width: 500px;
+    margin-right: 30px;
+    margin-left: 0;
   }
 
   @media (min-width: 750px) {
@@ -80,11 +105,24 @@ export const Photo = styled.div`
 `
 
 export const InstructionsContainer = styled.div`
-  width: 900px;
+  width: 330px;
   border-top: 1px solid var(--light-gray);
   margin: 30px 0;
+  padding-left: 15px;
 
-  h1 {
+  @media (min-width: 600px) {
+    width: 500px;
+    padding-left: 0;
+  }
+
+  @media (min-width: 750px) {
+    width: 700px;
+  }
+
+  @media (min-width: 980px) {
+    width: 900px;
+  }
+  \` h1 {
     margin: 10px 0;
     padding: 0;
     font-size: 44px;
@@ -119,14 +157,40 @@ export const Ingredient = styled.div`
   }
 `
 export const DescriptionContainer = styled.div`
-  width: 900px;
+  width: 330px;
   border-top: 1px solid var(--light-gray);
   margin: 30px 0;
+
+  @media (min-width: 600px) {
+    width: 500px;
+  }
+
+  @media (min-width: 750px) {
+    width: 700px;
+  }
+
+  @media (min-width: 980px) {
+    width: 900px;
+  }
 `
 export const RecipeItemCategoriesContainer = styled.div`
-  width: 900px;
+  width: 330px;
   border-top: 1px solid var(--light-gray);
   margin: 30px 0;
+  padding-left: 15px;
+
+  @media (min-width: 600px) {
+    width: 500px;
+    padding-left: 0;
+  }
+
+  @media (min-width: 750px) {
+    width: 700px;
+  }
+
+  @media (min-width: 980px) {
+    width: 900px;
+  }
   span {
     margin: 5px 0;
     padding-right: 10px;

@@ -1,22 +1,34 @@
 import styled from 'styled-components'
 
 export const RelatedRecipeContainer = styled.div`
-  width: 400px;
+  width: 330px;
   background-color: var(--light-gray);
   margin-top: 10px;
   padding: 30px 50px;
+  margin-left: 15px;
+  margin-bottom: 15px;
+
+  @media (min-width: 600px) {
+    width: 400px;
+    margin-left: 0;
+    margin-bottom: 0;
+  }
 
   h1 {
     padding-bottom: 10px;
   }
 `
 export const RelatedRecipe = styled.div`
-  width: 300px;
+  width: 230px;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 40px 0;
   border-bottom: 2px solid var(--light-black);
+
+  @media (min-width: 600px) {
+    width: 300px;
+  }
 
   span {
     font-weight: bold;

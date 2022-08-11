@@ -66,7 +66,7 @@ const RecipeItems = ({
             <ArrowButton onClick={increaseAmount}>&#10095;</ArrowButton>
             {ingredients.map(({ amount, unit, material }) => (
               <Ingredient key={material}>
-                <span>{amount * multiplier}</span>
+                <span>{Math.round(amount * multiplier * 100) / 100}</span>
                 <span>{unit}</span>
                 <span>{material}</span>
               </Ingredient>
