@@ -122,7 +122,7 @@ export const InstructionsContainer = styled.div`
   @media (min-width: 980px) {
     width: 900px;
   }
-  \` h1 {
+  h1 {
     margin: 10px 0;
     padding: 0;
     font-size: 44px;
