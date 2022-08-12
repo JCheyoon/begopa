@@ -7,12 +7,14 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useAxios } from '../../Hooks/useAxios'
 import { useContextRecipe } from '../../Context/recipeContext'
+import Spinner from '../../Components/Spinner/Spinner.component'
 
 const Recipe = () => {
   const { id } = useParams()
   const { get } = useAxios()
   const { allRecipes, fetchInitialRecipes } = useContextRecipe()
   const [recipe, setRecipe] = useState()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (!id) return
@@ -23,14 +25,19 @@ const Recipe = () => {
   }, [id])
 
   const fetchRecipe = async id => {
+    setLoading(true)
     try {
       const response = await get(`/recipe/${id}`)
       setRecipe(response.data)
     } catch (e) {
       console.log('Could not fetch recipe', e.response.data.message)
       // TODO handle error properly
+    } finally {
+      setLoading(false)
     }
   }
+
+  if (loading) return <Spinner />
 
   if (!recipe) return null
 
@@ -46,7 +53,7 @@ const Recipe = () => {
         ingredients={recipe.ingredients}
         tags={recipe.tags}
         servings={recipe.servings}
-        id={id}
+        id={recipe.id}
       />
       <Footer />
       <ScrollUp />
