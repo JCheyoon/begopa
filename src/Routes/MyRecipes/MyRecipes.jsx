@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import NoMyRecipes from '../../Components/NoMyRecipes/NoMyRecipes.component'
 
 const MyRecipes = () => {
-  const { allRecipes, fetchMyRecipes } = useContextRecipe()
+  const { myRecipes, fetchMyRecipes } = useContextRecipe()
 
   const viewMyRecipes = async () => {
     try {
@@ -26,7 +26,7 @@ const MyRecipes = () => {
   return (
     <Page>
       <RecipeHeader name="My recipes" />
-      {allRecipes.length <= 0 ? <NoMyRecipes /> : <Cards recipes={allRecipes} isMyRecipe={true} />}
+      {myRecipes.length <= 0 ? <NoMyRecipes /> : <Cards recipes={myRecipes} isMyRecipe={true} />}
       <Footer />
       <ScrollUp />
     </Page>

@@ -92,3 +92,10 @@ export const SearchContainer = styled.div`
     cursor: pointer;
   }
 `
+
+export const EmptyDiv = styled.div`
+  display: flex;
+  align-items: center;
+  flex-grow: 4;
+  padding: 10px 35px;
+`

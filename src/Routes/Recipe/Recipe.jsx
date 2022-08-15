@@ -3,16 +3,19 @@ import Footer from '../../Components/Footer/Footer.component'
 import RecipeHeader from '../../Components/RecipeHeader/RecipeHeader.component'
 import RecipeItems from '../../Components/RecipeItems/RecipeItems.component'
 import ScrollUp from '../../Components/ScrollUp/ScrollUp.component'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useAxios } from '../../Hooks/useAxios'
 import { useContextRecipe } from '../../Context/recipeContext'
 import Spinner from '../../Components/Spinner/Spinner.component'
+import { useContextAuth } from '../../Context/authContext'
 
 const Recipe = () => {
   const { id } = useParams()
+  const { search } = useLocation()
   const { get } = useAxios()
   const { allRecipes, fetchInitialRecipes } = useContextRecipe()
+  const { token } = useContextAuth()
   const [recipe, setRecipe] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -21,13 +24,15 @@ const Recipe = () => {
     if (!allRecipes.length) {
       fetchInitialRecipes()
     }
-    fetchRecipe(id)
-  }, [id])
+    const query = new URLSearchParams(search)
+    const isPublic = query.get('public') === 'true'
+    fetchRecipe(id, isPublic)
+  }, [id, token])
 
-  const fetchRecipe = async id => {
+  const fetchRecipe = async (id, isPublic) => {
     setLoading(true)
     try {
-      const response = await get(`/recipe/${id}`)
+      const response = await get(`/recipe/${isPublic ? '' : 'private/'}${id}`, token)
       setRecipe(response.data)
     } catch (e) {
       console.log('Could not fetch recipe', e.response.data.message)

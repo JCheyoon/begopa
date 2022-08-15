@@ -58,6 +58,7 @@ const SignInForm = () => {
             break
           case 'INVALID_FORMAT':
             alert('Incorrect password and email')
+            break
           default:
             console.log('shit happened at login', e.response.data.message)
         }

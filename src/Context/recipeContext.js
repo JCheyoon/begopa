@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { useAxios } from '../Hooks/useAxios'
 import { useContextAuth } from './authContext'
 
@@ -24,11 +24,18 @@ function createTags(recipes) {
 const RecipeContext = createContext({})
 
 export const RecipeProvider = ({ children }) => {
-  const { token } = useContextAuth()
+  const { token, isLoggedIn } = useContextAuth()
   const { post, get, remove } = useAxios()
   const [allRecipes, setAllRecipes] = useState([])
+  const [myRecipes, setMyRecipes] = useState([])
   const [filteredRecipes, setFilteredRecipes] = useState([])
   const [tags, setTags] = useState({ frequents: [], others: [] })
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setMyRecipes([])
+    }
+  }, [isLoggedIn])
 
   const fetchInitialRecipes = async () => {
     const response = await get('/recipe/list')
@@ -41,7 +48,7 @@ export const RecipeProvider = ({ children }) => {
   const fetchMyRecipes = async () => {
     const response = await get('/recipe/my-list', token)
     if (!response?.data) return
-    setAllRecipes([...response.data])
+    setMyRecipes([...response.data])
   }
 
   const fetchAllRecipes = async () => {
@@ -75,7 +82,7 @@ export const RecipeProvider = ({ children }) => {
   }
 
   const getRelatedRecipes = (tags, id) => {
-    const filtered = allRecipes.filter(recipe => {
+    const filtered = [...allRecipes, ...myRecipes].filter(recipe => {
       return tags.some(tag => recipe.tags.includes(tag)) && recipe.id !== id
     })
     return filtered.slice(0, 3)
@@ -88,6 +95,7 @@ export const RecipeProvider = ({ children }) => {
     fetchAllRecipes,
     fetchMyRecipes,
     allRecipes,
+    myRecipes,
     deleteRecipe,
     tags,
     filterByTag,

@@ -20,12 +20,12 @@ const RelatedRecipes = ({ tags, id }) => {
     <RelatedRecipeContainer>
       <h1>Related recipes</h1>
       {relatedRecipes.length ? (
-        relatedRecipes.map(({ id, photoUrl, name }) => (
+        relatedRecipes.map(({ id, photoUrl, name, public: isPublic }) => (
           <RelatedRecipe key={id}>
-            <Link to={`/recipe/${id}`}>
+            <Link to={`/recipe/${id}?public=${isPublic}`}>
               <RelateRecipePic photoUrl={photoUrl} />
             </Link>
-            <Link to={`/recipe/${id}`}>
+            <Link to={`/recipe/${id}?public=${isPublic}`}>
               <span>{name}</span>
             </Link>
           </RelatedRecipe>

@@ -9,7 +9,7 @@ import {
 import { Link } from 'react-router-dom'
 import { useContextRecipe } from '../../../Context/recipeContext'
 
-const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe }) => {
+const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe, isPublic }) => {
   const { deleteRecipe, fetchMyRecipes } = useContextRecipe()
 
   const removeRecipe = async () => {
@@ -24,12 +24,12 @@ const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe }) => {
 
   return (
     <CardWrapper>
-      <Link to={`/recipe/${recipeId}`}>
+      <Link to={`/recipe/${recipeId}?public=${isPublic}`}>
         <CardImg imgUrl={imgUrl} />
       </Link>
 
       <CardDescription>
-        <Link to={`/recipe/${recipeId}`}>
+        <Link to={`/recipe/${recipeId}?public=${isPublic}`}>
           <h1>{recipeName}</h1>
         </Link>
         <CardTime>

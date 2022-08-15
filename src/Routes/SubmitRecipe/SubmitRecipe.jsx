@@ -18,13 +18,13 @@ function fixValues(values) {
   return copy
 }
 
-const initialIngredient = { amount: 0, unit: '', material: '' }
+const initialIngredient = { amount: '', unit: '', material: '' }
 
 const initialValues = {
   name: '',
   photoUrl: '',
   cookingTime: '',
-  servings: 0,
+  servings: '',
   public: false,
   instructions: '',
   tags: [''],
@@ -74,7 +74,7 @@ const SubmitRecipe = () => {
 
     try {
       const response = await saveNewRecipe(fixedValues)
-      navigate(`/recipe/${response.data.id}`)
+      navigate(`/recipe/${response.data.id}?public=${values.public}`)
     } catch (e) {
       // TODO show message
       console.log('Could not save recipe', e.response.data.message)

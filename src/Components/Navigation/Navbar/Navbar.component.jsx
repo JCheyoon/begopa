@@ -1,12 +1,20 @@
-import { NavbarContainer, SearchContainer, NavLink, NavButton } from '../Navbar/Navbar.style'
+import {
+  NavbarContainer,
+  SearchContainer,
+  NavLink,
+  NavButton,
+  EmptyDiv,
+} from '../Navbar/Navbar.style'
 import { useContextAuth } from '../../../Context/authContext'
 import { useState } from 'react'
 import { useContextRecipe } from '../../../Context/recipeContext'
+import { useLocation } from 'react-router-dom'
 
 const Navbar = () => {
   const { isLoggedIn, handleLogout } = useContextAuth()
   const [searchField, setSearchField] = useState('')
   const { filterByName } = useContextRecipe()
+  const location = useLocation()
 
   const onSearchChange = e => {
     const searchFieldString = e.target.value.toLowerCase()
@@ -21,18 +29,23 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <SearchContainer>
-        Browse Recipes
-        <input
-          type="text"
-          placeholder="Find a recipe..."
-          onChange={onSearchChange}
-          onKeyUp={handleKeyPress}
-        />
-        <button type="submit" onClick={() => filterByName(searchField)}>
-          <span className="material-symbols-outlined">search</span>
-        </button>
-      </SearchContainer>
+      {location.pathname === '/' ? (
+        <SearchContainer>
+          Browse Recipes
+          <input
+            type="text"
+            placeholder="Find a recipe..."
+            onChange={onSearchChange}
+            onKeyUp={handleKeyPress}
+          />
+          <button type="submit" onClick={() => filterByName(searchField)}>
+            <span className="material-symbols-outlined">search</span>
+          </button>
+        </SearchContainer>
+      ) : (
+        <EmptyDiv />
+      )}
+
       {isLoggedIn ? (
         <>
           <NavLink to="/submit">
