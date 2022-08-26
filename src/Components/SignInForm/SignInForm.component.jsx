@@ -5,6 +5,8 @@ import FormInput from './FormInput/FormInput.component'
 import { Button } from '../Page/Page.style'
 import { useAxios } from '../../Hooks/useAxios'
 import { useContextAuth } from '../../Context/authContext'
+import Modal from '../../Modal/Modal'
+import { useContextModal } from '../../Context/ModalContext'
 
 const defaultFormValue = {
   email: '',
@@ -26,24 +28,28 @@ const SignInForm = () => {
   const { email, password } = formFields
   const navigate = useNavigate()
 
+  const { showModal } = useContextModal()
+
   const handleSubmit = async e => {
     e.preventDefault()
     if (formType === FormType.SIGNUP) {
       try {
         const response = await post('/user/signup', formFields)
-        console.log('signup', response.data)
         setFormType(FormType.LOGIN)
         resetForm()
         setTimeout(() => {
-          alert('You can login now!')
+          showModal({ title: 'Welcome!', message: 'You can login now!' })
         }, 200)
       } catch (e) {
         switch (e.response.data.message) {
           case 'EMAIL_REGISTERED':
-            alert('Already registered')
+            showModal({
+              title: 'Already registered',
+              message: 'This email already registered',
+            })
             break
           default:
-            console.log('shit happened at signup', e.response.data.message)
+            showModal({ title: 'Error', message: 'shit happened at signup' })
         }
       }
     } else if (formType === FormType.LOGIN) {
@@ -52,15 +58,17 @@ const SignInForm = () => {
         handleLogin(response.data)
         navigate('/')
       } catch (e) {
-        switch (e.response.data.message) {
-          case 'INVALID_CREDENTIALS':
-            alert('user not found')
-            break
-          case 'INVALID_FORMAT':
-            alert('Incorrect password and email')
-            break
-          default:
-            console.log('shit happened at login', e.response.data.message)
+        console.log(e)
+        if (e?.response?.data?.message === 'INVALID_CREDENTIALS') {
+          showModal({ title: 'User Error', message: 'Incorrect password or email' })
+        } else if (e?.response?.data?.message[0]?.message === 'INVALID_FORMAT') {
+          const invalidField = e.response.data.message[0].path
+          showModal({
+            title: 'Invalid Format',
+            message: `The format of ${invalidField} is not valid.`,
+          })
+        } else {
+          showModal({ title: 'Error', message: 'shit happened at login' })
         }
       }
     }

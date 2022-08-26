@@ -11,6 +11,7 @@ import {
 import { Formik } from 'formik'
 import { useRef } from 'react'
 import { useContextRecipe } from '../../Context/recipeContext'
+import { useContextModal } from '../../Context/ModalContext'
 
 function fixValues(values) {
   const copy = { ...values }
@@ -36,6 +37,8 @@ const SubmitRecipe = () => {
 
   const { saveNewRecipe } = useContextRecipe()
   const formRef = useRef(null)
+
+  const { showModal } = useContextModal()
 
   const removeIngredientHandler = index => {
     if (!formRef?.current) return
@@ -76,8 +79,7 @@ const SubmitRecipe = () => {
       const response = await saveNewRecipe(fixedValues)
       navigate(`/recipe/${response.data.id}?public=${values.public}`)
     } catch (e) {
-      // TODO show message
-      console.log('Could not save recipe', e.response.data.message)
+      showModal({ title: 'Error', message: 'Could not save recipe' })
     }
   }
 

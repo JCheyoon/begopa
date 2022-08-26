@@ -8,21 +8,26 @@ import Navigation from './Components/Navigation/Navigation.component'
 import MyRecipes from './Routes/MyRecipes/MyRecipes'
 import { AuthProvider } from './Context/authContext'
 import { RecipeProvider } from './Context/recipeContext'
+import { ModalProvider } from './Context/ModalContext'
+import Modal from './Modal/Modal'
 
 function App() {
   return (
-    <AuthProvider>
-      <RecipeProvider>
-        <Navigation />
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="auth" element={<Authentication />} />
-          <Route path="recipe/:id" element={<Recipe />} />
-          <Route path="submit" element={<SubmitRecipe />} />
-          <Route path="my-recipes" element={<MyRecipes />} />
-        </Routes>
-      </RecipeProvider>
-    </AuthProvider>
+    <ModalProvider>
+      <Modal />
+      <AuthProvider>
+        <RecipeProvider>
+          <Navigation />
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="auth" element={<Authentication />} />
+            <Route path="recipe/:id" element={<Recipe />} />
+            <Route path="submit" element={<SubmitRecipe />} />
+            <Route path="my-recipes" element={<MyRecipes />} />
+          </Routes>
+        </RecipeProvider>
+      </AuthProvider>
+    </ModalProvider>
   )
 }
 
