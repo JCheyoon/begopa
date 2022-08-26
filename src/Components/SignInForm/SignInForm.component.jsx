@@ -5,7 +5,6 @@ import FormInput from './FormInput/FormInput.component'
 import { Button } from '../Page/Page.style'
 import { useAxios } from '../../Hooks/useAxios'
 import { useContextAuth } from '../../Context/authContext'
-import Modal from '../../Modal/Modal'
 import { useContextModal } from '../../Context/ModalContext'
 
 const defaultFormValue = {
@@ -34,7 +33,7 @@ const SignInForm = () => {
     e.preventDefault()
     if (formType === FormType.SIGNUP) {
       try {
-        const response = await post('/user/signup', formFields)
+        await post('/user/signup', formFields)
         setFormType(FormType.LOGIN)
         resetForm()
         setTimeout(() => {
