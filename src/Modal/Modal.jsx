@@ -8,7 +8,7 @@ const Backdrop = ({ onConfirm }) => {
   return <BackDropContainer onClick={onConfirm} />
 }
 
-const ModalOverlay = ({ title, message, onConfirm }) => {
+const ModalOverlay = ({ title, message, confirmationMode, onHide, onConfirm }) => {
   return (
     <OverlayContainer>
       <Header>
@@ -17,25 +17,46 @@ const ModalOverlay = ({ title, message, onConfirm }) => {
       <Content>
         <p>{message}</p>
       </Content>
-      <Footer>
-        <Button onClick={onConfirm}>Okay</Button>
-      </Footer>
+      {confirmationMode ? (
+        <Footer>
+          <Button onClick={onHide}>No</Button>
+          <Button onClick={onConfirm}>Yes</Button>
+        </Footer>
+      ) : (
+        <Footer>
+          <Button onClick={onHide}>Okay</Button>
+        </Footer>
+      )}
     </OverlayContainer>
   )
 }
 
 const Modal = () => {
-  const { title, message, show, hideModal } = useContextModal()
+  const { title, message, show, hideModal, confirmationMode, confirmHandler } = useContextModal()
   return show ? (
     <>
       {ReactDOM.createPortal(
         <Backdrop onConfirm={hideModal} />,
         document.getElementById('backdrop-root')
       )}
-      {ReactDOM.createPortal(
-        <ModalOverlay title={title} message={message} onConfirm={hideModal} />,
-        document.getElementById('modal-root')
-      )}
+      {confirmationMode
+        ? ReactDOM.createPortal(
+            <ModalOverlay
+              title={title}
+              message={message}
+              onHide={hideModal}
+              confirmationMode={true}
+              onConfirm={() => {
+                confirmHandler()
+                hideModal()
+              }}
+            />,
+            document.getElementById('modal-root')
+          )
+        : ReactDOM.createPortal(
+            <ModalOverlay title={title} message={message} onHide={hideModal} />,
+            document.getElementById('modal-root')
+          )}
     </>
   ) : null
 }

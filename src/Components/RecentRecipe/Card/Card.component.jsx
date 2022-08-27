@@ -10,10 +10,20 @@ import {
 import { Link } from 'react-router-dom'
 import { useContextRecipe } from '../../../Context/recipeContext'
 import { useNavigate } from 'react-router-dom'
+import { useContextModal } from '../../../Context/ModalContext'
 
 const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe, isPublic }) => {
   const { deleteRecipe, fetchMyRecipes } = useContextRecipe()
+  const { showConfirmation } = useContextModal()
   const navigate = useNavigate()
+
+  const clickRemoveHandler = () => {
+    showConfirmation({
+      title: 'Warning',
+      message: 'Are you sure you want to delete this recipe?',
+      confirmHandler: () => removeRecipe,
+    })
+  }
 
   const removeRecipe = async () => {
     try {
@@ -53,7 +63,7 @@ const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe, isPublic }
             <EditButton onClick={goEditModeHandler}>
               <span className="material-symbols-outlined">edit</span>
             </EditButton>
-            <DeleteButton onClick={removeRecipe}>
+            <DeleteButton onClick={clickRemoveHandler}>
               <span className="material-symbols-outlined">delete</span>
             </DeleteButton>
           </IconContainer>

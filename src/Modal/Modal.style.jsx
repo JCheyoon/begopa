@@ -44,4 +44,5 @@ export const Footer = styled.footer`
   padding: 1rem;
   display: flex;
   justify-content: flex-end;
+  gap: 1rem;
 `
