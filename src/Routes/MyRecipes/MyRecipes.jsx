@@ -6,16 +6,18 @@ import Cards from '../../Components/RecentRecipe/Cards/Cards.component'
 import { useContextRecipe } from '../../Context/recipeContext'
 import { useEffect } from 'react'
 import NoMyRecipes from '../../Components/NoMyRecipes/NoMyRecipes.component'
+import { useContextModal } from '../../Context/ModalContext'
 
 const MyRecipes = () => {
   const { myRecipes, fetchMyRecipes } = useContextRecipe()
+  const { showModal } = useContextModal()
 
   const viewMyRecipes = async () => {
     try {
       await fetchMyRecipes()
     } catch (e) {
-      console.log('Could not fetch my recipes', e.response.data.message)
-      // TODO handle error properly
+      showModal({ title: 'Error', message: 'Could not fetch my recipes' })
+      console.log(e.response.data.message)
     }
   }
 

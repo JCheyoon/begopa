@@ -3,14 +3,17 @@ import {
   CardImg,
   CardDescription,
   CardTime,
-  DeleteContainer,
+  IconContainer,
   DeleteButton,
+  EditButton,
 } from './Card.style'
 import { Link } from 'react-router-dom'
 import { useContextRecipe } from '../../../Context/recipeContext'
+import { useNavigate } from 'react-router-dom'
 
 const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe, isPublic }) => {
   const { deleteRecipe, fetchMyRecipes } = useContextRecipe()
+  const navigate = useNavigate()
 
   const removeRecipe = async () => {
     try {
@@ -20,6 +23,10 @@ const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe, isPublic }
     } catch (e) {
       console.log('error', e.response.data.message)
     }
+  }
+
+  const goEditModeHandler = () => {
+    navigate(`/edit/${recipeId}?public=${isPublic}`)
   }
 
   return (
@@ -42,11 +49,14 @@ const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe, isPublic }
           </span>
         ))}
         {isMyRecipe === true ? (
-          <DeleteContainer>
+          <IconContainer>
+            <EditButton onClick={goEditModeHandler}>
+              <span className="material-symbols-outlined">edit</span>
+            </EditButton>
             <DeleteButton onClick={removeRecipe}>
               <span className="material-symbols-outlined">delete</span>
             </DeleteButton>
-          </DeleteContainer>
+          </IconContainer>
         ) : null}
       </CardDescription>
     </CardWrapper>

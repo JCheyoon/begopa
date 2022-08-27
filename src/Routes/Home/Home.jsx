@@ -6,10 +6,12 @@ import { Page } from '../../Components/Page/Page.style'
 import { useContextRecipe } from '../../Context/recipeContext'
 import { useEffect, useState } from 'react'
 import Spinner from '../../Components/Spinner/Spinner.component'
+import { useContextModal } from '../../Context/ModalContext'
 
 const Home = () => {
   const { fetchInitialRecipes } = useContextRecipe()
   const [loading, setLoading] = useState(false)
+  const { showModal } = useContextModal()
 
   useEffect(() => {
     fetchRecents()
@@ -20,8 +22,8 @@ const Home = () => {
     try {
       await fetchInitialRecipes()
     } catch (e) {
-      console.log('Could not fetch recent recipes', e.response.data.message)
-      // TODO handle error properly
+      showModal({ title: 'Error', message: 'Could not fetch recent recipes' })
+      console.log(e.response.data.message)
     } finally {
       setLoading(false)
     }

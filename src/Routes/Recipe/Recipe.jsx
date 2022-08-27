@@ -9,6 +9,7 @@ import { useAxios } from '../../Hooks/useAxios'
 import { useContextRecipe } from '../../Context/recipeContext'
 import Spinner from '../../Components/Spinner/Spinner.component'
 import { useContextAuth } from '../../Context/authContext'
+import { useContextModal } from '../../Context/ModalContext'
 
 const Recipe = () => {
   const { id } = useParams()
@@ -18,6 +19,7 @@ const Recipe = () => {
   const { token } = useContextAuth()
   const [recipe, setRecipe] = useState()
   const [loading, setLoading] = useState(false)
+  const { showModal } = useContextModal()
 
   useEffect(() => {
     if (!id) return
@@ -35,8 +37,8 @@ const Recipe = () => {
       const response = await get(`/recipe/${isPublic ? '' : 'private/'}${id}`, token)
       setRecipe(response.data)
     } catch (e) {
-      console.log('Could not fetch recipe', e.response.data.message)
-      // TODO handle error properly
+      showModal({ title: 'Error', message: 'Could not fetch recipe' })
+      console.log(e.response.data.message)
     } finally {
       setLoading(false)
     }

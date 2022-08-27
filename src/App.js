@@ -23,6 +23,7 @@ function App() {
             <Route path="auth" element={<Authentication />} />
             <Route path="recipe/:id" element={<Recipe />} />
             <Route path="submit" element={<SubmitRecipe />} />
+            <Route path="edit/:id" element={<SubmitRecipe isEditMode={true} />} />
             <Route path="my-recipes" element={<MyRecipes />} />
           </Routes>
         </RecipeProvider>

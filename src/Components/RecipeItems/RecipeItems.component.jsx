@@ -30,7 +30,7 @@ const RecipeItems = ({
 
   const changeCreateTime = string => {
     const date = new Date(string)
-    return date.toLocaleString()
+    return date.toLocaleDateString()
   }
   const increaseAmount = () => {
     const newServings = servingValue + 1

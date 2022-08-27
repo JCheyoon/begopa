@@ -25,7 +25,7 @@ const RecipeContext = createContext({})
 
 export const RecipeProvider = ({ children }) => {
   const { token, isLoggedIn } = useContextAuth()
-  const { post, get, remove } = useAxios()
+  const { post, get, put, remove } = useAxios()
   const [allRecipes, setAllRecipes] = useState([])
   const [myRecipes, setMyRecipes] = useState([])
   const [filteredRecipes, setFilteredRecipes] = useState([])
@@ -60,6 +60,11 @@ export const RecipeProvider = ({ children }) => {
     return post('/recipe', recipeData, token)
   }
 
+  const updateRecipe = (recipeData, recipeId) => {
+    if (!token) return
+    return put(`/recipe/${recipeId}`, recipeData, token)
+  }
+
   const deleteRecipe = id => {
     return remove(`/recipe/${id}`, token)
   }
@@ -90,6 +95,7 @@ export const RecipeProvider = ({ children }) => {
 
   const value = {
     saveNewRecipe,
+    updateRecipe,
     filteredRecipes,
     fetchInitialRecipes,
     fetchAllRecipes,

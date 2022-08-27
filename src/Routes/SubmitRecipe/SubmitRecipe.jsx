@@ -1,5 +1,5 @@
 import { Page, Button } from '../../Components/Page/Page.style'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import {
   SubmitRecipeContainer,
   SubmitRecipeSection,
@@ -9,9 +9,12 @@ import {
   ListItemsContainer,
 } from './SubmitRecipe.style'
 import { Formik } from 'formik'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useContextRecipe } from '../../Context/recipeContext'
 import { useContextModal } from '../../Context/ModalContext'
+import Spinner from '../../Components/Spinner/Spinner.component'
+import { useContextAuth } from '../../Context/authContext'
+import { useAxios } from '../../Hooks/useAxios'
 
 function fixValues(values) {
   const copy = { ...values }
@@ -32,13 +35,55 @@ const initialValues = {
   ingredients: [{ ...initialIngredient }],
 }
 
-const SubmitRecipe = () => {
+const SubmitRecipe = ({ isEditMode }) => {
   const navigate = useNavigate()
+  const { id } = useParams()
+  const { search } = useLocation()
+  const { token } = useContextAuth()
+  const { get } = useAxios()
+  const [loading, setLoading] = useState(false)
+  const [fetchedRecipe, setFetchedRecipe] = useState()
 
-  const { saveNewRecipe } = useContextRecipe()
+  const { saveNewRecipe, updateRecipe } = useContextRecipe()
   const formRef = useRef(null)
 
   const { showModal } = useContextModal()
+
+  useEffect(() => {
+    if (!id || !isEditMode) return
+    const query = new URLSearchParams(search)
+    const isPublic = query.get('public') === 'true'
+    fetchRecipe(id, isPublic)
+  }, [id])
+
+  useEffect(() => {
+    if (!formRef?.current || !fetchedRecipe) return
+    formRef.current.resetForm({
+      values: {
+        name: fetchedRecipe.name,
+        photoUrl: fetchedRecipe.photoUrl,
+        cookingTime: fetchedRecipe.cookingTime,
+        servings: fetchedRecipe.servings,
+        public: fetchedRecipe.public,
+        instructions: fetchedRecipe.instructions,
+        tags: fetchedRecipe.tags,
+        ingredients: fetchedRecipe.ingredients,
+      },
+    })
+  }, [fetchedRecipe])
+
+  const fetchRecipe = async (id, isPublic) => {
+    setLoading(true)
+    try {
+      const response = await get(`/recipe/${isPublic ? '' : 'private/'}${id}`, token)
+      setFetchedRecipe(response.data)
+    } catch (e) {
+      showModal({ title: 'Error', message: 'Could not fetch recipe' })
+      console.log(e.response.data.message)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const removeIngredientHandler = index => {
     if (!formRef?.current) return
@@ -76,12 +121,19 @@ const SubmitRecipe = () => {
     const fixedValues = fixValues(values)
 
     try {
-      const response = await saveNewRecipe(fixedValues)
+      let response
+      if (isEditMode) {
+        response = await updateRecipe(fixedValues, id)
+      } else {
+        response = await saveNewRecipe(fixedValues)
+      }
       navigate(`/recipe/${response.data.id}?public=${values.public}`)
     } catch (e) {
       showModal({ title: 'Error', message: 'Could not save recipe' })
     }
   }
+
+  if (loading) return <Spinner />
 
   return (
     <Page>
@@ -90,7 +142,7 @@ const SubmitRecipe = () => {
           {({ values, handleChange, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <SubmitRecipeSection className="header">
-                <h1>Submit recipe</h1>
+                <h1>{isEditMode ? 'Edit recipe' : 'Submit recipe'}</h1>
               </SubmitRecipeSection>
               <SubmitRecipeSection className="info">
                 <SubmitRecipeInput>
@@ -215,7 +267,7 @@ const SubmitRecipe = () => {
                     type="checkbox"
                     name="public"
                     id="public"
-                    value={values.public}
+                    checked={values.public}
                     onChange={handleChange}
                   />
                   <label htmlFor="public">Please Check if you want to save in public</label>

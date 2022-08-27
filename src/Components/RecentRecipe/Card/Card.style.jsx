@@ -70,7 +70,7 @@ export const CardTime = styled.div`
     margin-left: 5px;
   }
 `
-export const DeleteContainer = styled.div`
+export const IconContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -79,7 +79,7 @@ export const DeleteContainer = styled.div`
   color: var(--gray);
 `
 
-export const DeleteButton = styled.button`
+export const XYButton = styled.button`
   color: var(--gray);
 
   text-decoration: none;
@@ -87,10 +87,19 @@ export const DeleteButton = styled.button`
   background: none;
   cursor: pointer;
   transition: all 200ms ease-in-out;
+`
 
+export const DeleteButton = styled(XYButton)`
   span {
     &:hover {
       color: red;
+    }
+  }
+`
+export const EditButton = styled(XYButton)`
+  span {
+    &:hover {
+      color: green;
     }
   }
 `

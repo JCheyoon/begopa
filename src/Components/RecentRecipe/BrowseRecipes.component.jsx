@@ -3,6 +3,7 @@ import Cards from './Cards/Cards.component'
 import { Button } from '../Page/Page.style'
 import { useState } from 'react'
 import { useContextRecipe } from '../../Context/recipeContext'
+import { useContextModal } from '../../Context/ModalContext'
 
 const recipeTitles = {
   recent: 'Recent Recipes',
@@ -13,13 +14,14 @@ const recipeTitles = {
 const BrowseRecipes = () => {
   const { allRecipes, filteredRecipes, fetchAllRecipes } = useContextRecipe()
   const [title, setTitle] = useState(recipeTitles.recent)
+  const { showModal } = useContextModal()
 
   const viewAllRecipes = async () => {
     try {
       await fetchAllRecipes()
     } catch (e) {
-      console.log('Could not fetch all recipes', e.response.data.message)
-      // TODO handle error properly
+      showModal({ title: 'Error', message: 'Could not fetch all recipes' })
+      console.log(e.response.data.message)
     }
     setTitle(recipeTitles.all)
   }
