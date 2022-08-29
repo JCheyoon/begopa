@@ -15,6 +15,8 @@ import { useContextModal } from '../../Context/ModalContext'
 import Spinner from '../../Components/Spinner/Spinner.component'
 import { useContextAuth } from '../../Context/authContext'
 import { useAxios } from '../../Hooks/useAxios'
+import { RecipeInputSchema } from './recipeValidation'
+import { logDOM } from '@testing-library/react'
 
 function fixValues(values) {
   const copy = { ...values }
@@ -115,9 +117,9 @@ const SubmitRecipe = ({ isEditMode }) => {
   }
 
   const submitForm = async values => {
-    console.log('submitting', values)
     if (!formRef?.current) return
 
+    setLoading(true)
     const fixedValues = fixValues(values)
 
     try {
@@ -129,7 +131,10 @@ const SubmitRecipe = ({ isEditMode }) => {
       }
       navigate(`/recipe/${response.data.id}?public=${values.public}`)
     } catch (e) {
+      console.log('error', e.response.data.message)
       showModal({ title: 'Error', message: 'Could not save recipe' })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -138,8 +143,14 @@ const SubmitRecipe = ({ isEditMode }) => {
   return (
     <Page>
       <SubmitRecipeContainer>
-        <Formik initialValues={{ ...initialValues }} onSubmit={submitForm} innerRef={formRef}>
-          {({ values, handleChange, handleSubmit }) => (
+        <Formik
+          initialValues={{ ...initialValues }}
+          onSubmit={submitForm}
+          innerRef={formRef}
+          validationSchema={RecipeInputSchema}
+          validateOnChange={true}
+        >
+          {({ values, handleChange, handleBlur, handleSubmit, errors, touched, isValid }) => (
             <form onSubmit={handleSubmit}>
               <SubmitRecipeSection className="header">
                 <h1>{isEditMode ? 'Edit recipe' : 'Submit recipe'}</h1>
@@ -148,9 +159,11 @@ const SubmitRecipe = ({ isEditMode }) => {
                 <SubmitRecipeInput>
                   <label>Recipe Name</label>
                   <input
+                    className={touched.name && errors.name ? 'error' : ''}
                     placeholder="name"
                     type="text"
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     value={values.name}
                     name="name"
                   />
@@ -158,9 +171,11 @@ const SubmitRecipe = ({ isEditMode }) => {
                 <SubmitRecipeInput>
                   <label>Recipe Photo</label>
                   <input
+                    className={touched.photoUrl && errors.photoUrl ? 'error' : ''}
                     placeholder="Photo Url"
                     type="text"
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     value={values.photoUrl}
                     name="photoUrl"
                   />
@@ -170,17 +185,22 @@ const SubmitRecipe = ({ isEditMode }) => {
                 <SubmitRecipeInput>
                   <label>Serving</label>
                   <input
+                    className={touched.servings && errors.servings ? 'error' : ''}
                     placeholder="0"
+                    onBlur={handleBlur}
                     type="number"
+                    min="1"
                     onChange={handleChange}
                     name="servings"
                     value={values.servings}
                   />
                   <label>Cooking Time</label>
                   <input
+                    className={touched.cookingTime && errors.cookingTime ? 'error' : ''}
                     placeholder="0"
                     type="text"
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     value={values.cookingTime}
                     name="cookingTime"
                   />
@@ -191,23 +211,50 @@ const SubmitRecipe = ({ isEditMode }) => {
                 {values.ingredients.map((ingredient, index) => (
                   <ListItemsContainer key={index}>
                     <input
+                      className={
+                        touched?.ingredients &&
+                        touched.ingredients[index]?.material &&
+                        errors?.ingredients &&
+                        errors.ingredients[index]?.material
+                          ? 'error'
+                          : ''
+                      }
                       placeholder="Material"
                       type="text"
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       name={`ingredients.[${index}].material`}
                       value={values.ingredients[index].material}
                     />
                     <input
+                      className={
+                        touched?.ingredients &&
+                        touched.ingredients[index]?.amount &&
+                        errors?.ingredients &&
+                        errors.ingredients[index]?.amount
+                          ? 'error'
+                          : ''
+                      }
                       placeholder="Amount"
                       type="number"
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       name={`ingredients.[${index}].amount`}
                       value={values.ingredients[index].amount}
                     />
                     <input
+                      className={
+                        touched?.ingredients &&
+                        touched.ingredients[index]?.unit &&
+                        errors?.ingredients &&
+                        errors.ingredients[index]?.unit
+                          ? 'error'
+                          : ''
+                      }
                       placeholder="Unit"
                       type="text"
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       name={`ingredients.[${index}].unit`}
                       value={values.ingredients[index].unit}
                     />
@@ -230,8 +277,10 @@ const SubmitRecipe = ({ isEditMode }) => {
                 <SubmitRecipeInput className="instruction">
                   <label>instruction</label>
                   <textarea
+                    className={touched.instructions && errors.instructions ? 'error' : ''}
                     placeholder="Ex) 1.prepare vegetables"
                     rows="20"
+                    onBlur={handleBlur}
                     onChange={handleChange}
                     name="instructions"
                     value={values.instructions}
@@ -243,8 +292,10 @@ const SubmitRecipe = ({ isEditMode }) => {
                 {values.tags.map((tag, index) => (
                   <ListItemsContainer key={index}>
                     <input
+                      className={touched.tags && errors.tags ? 'error' : ''}
                       placeholder="tag"
                       type="text"
+                      onBlur={handleBlur}
                       onChange={handleChange}
                       name={`tags.[${index}]`}
                       value={values.tags[index]}
@@ -273,7 +324,12 @@ const SubmitRecipe = ({ isEditMode }) => {
                   <label htmlFor="public">Please Check if you want to save in public</label>
                 </SubmitRecipeInput>
               </SubmitRecipeSection>
-              <Button type="submit">Save</Button>
+              <Button
+                type="submit"
+                disabled={loading || !Object.values(touched).length || !isValid}
+              >
+                Save
+              </Button>
             </form>
           )}
         </Formik>

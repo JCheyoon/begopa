@@ -89,6 +89,9 @@ export const SubmitRecipeInput = styled.div`
     padding: 10px 10px 10px 5px;
     margin-right: 30px;
 
+    &.error {
+      border-bottom: 3px solid red;
+    }
     ::placeholder {
       color: var(--gray);
     }
@@ -108,6 +111,10 @@ export const SubmitRecipeInput = styled.div`
       border: none;
       border-bottom: 1px solid var(--black);
       background: none;
+
+      &.error {
+        border-bottom: 3px solid red;
+      }
 
       @media (min-width: 570px) {
         width: 500px;
@@ -182,6 +189,9 @@ export const ListItemsContainer = styled.div`
     }
     ::placeholder {
       color: var(--gray);
+    }
+    &.error {
+      border-bottom: 3px solid red;
     }
 
     @media (min-width: 720px) {

@@ -27,7 +27,6 @@ const Card = ({ recipeName, imgUrl, time, tags, recipeId, isMyRecipe, isPublic }
 
   const removeRecipe = async () => {
     try {
-      console.log(recipeId)
       await deleteRecipe(recipeId)
       fetchMyRecipes()
     } catch (e) {
