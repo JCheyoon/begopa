@@ -152,9 +152,8 @@ export const ServingInput = styled.span`
 
 export const Ingredient = styled.div`
   margin-top: 20px;
-  span {
-    padding: 0 10px;
-  }
+  display: grid;
+  grid-template: repeat(1, 30px) / 70px 160px 160px;
 `
 export const DescriptionContainer = styled.div`
   width: 330px;

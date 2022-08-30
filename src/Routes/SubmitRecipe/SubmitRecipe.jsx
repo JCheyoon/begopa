@@ -16,7 +16,6 @@ import Spinner from '../../Components/Spinner/Spinner.component'
 import { useContextAuth } from '../../Context/authContext'
 import { useAxios } from '../../Hooks/useAxios'
 import { RecipeInputSchema } from './recipeValidation'
-import { logDOM } from '@testing-library/react'
 
 function fixValues(values) {
   const copy = { ...values }
