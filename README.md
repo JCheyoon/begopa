@@ -3,7 +3,7 @@
 My recipes website made with React
 
 ### Public pages:
-![Website gif](https://storage.jcheyoon.com/begopa.gif)
+![](https://storage.jcheyoon.com/begopa.gif)
 
 > [>> Check it out here!](https://begopa.jcheyoon.com/)
 ### Features:
@@ -16,7 +16,7 @@ My recipes website made with React
 
 - **Tags filtering & Searching -**
   Visitors can filter recipes by tag that named from them, can search recipe by name
-- 
+
 
 ### Technologies used:
 
