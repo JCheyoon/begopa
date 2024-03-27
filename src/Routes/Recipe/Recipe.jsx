@@ -21,6 +21,7 @@ const Recipe = () => {
   const [loading, setLoading] = useState(false)
   const { showModal } = useContextModal()
 
+  //프라이빗모드에서 로그인토큰을 나중에 불러와서 에러 일으키던거 고치기
   useEffect(() => {
     if (!id) return
     if (!allRecipes.length) {
@@ -28,6 +29,7 @@ const Recipe = () => {
     }
     const query = new URLSearchParams(search)
     const isPublic = query.get('public') === 'true'
+    if (!isPublic && !token) return
     fetchRecipe(id, isPublic)
   }, [id, token])
 

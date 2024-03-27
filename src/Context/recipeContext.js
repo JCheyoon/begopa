@@ -90,7 +90,11 @@ export const RecipeProvider = ({ children }) => {
     const filtered = [...allRecipes, ...myRecipes].filter(recipe => {
       return tags.some(tag => recipe.tags.includes(tag)) && recipe.id !== id
     })
-    return filtered.slice(0, 3)
+    const relatedMap = new Map()
+    filtered.forEach(recipe => {
+      relatedMap.set(recipe.id, recipe)
+    })
+    return Array.from(relatedMap.values()).slice(0, 3)
   }
 
   const value = {
